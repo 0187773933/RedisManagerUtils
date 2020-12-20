@@ -22,7 +22,7 @@ func ( manager *Manager ) Connect( address string , db int , password string ) {
 func ( manager *Manager ) Get( redis_key string ) ( result string ) {
 	result = "failed"
 	var ctx = context.Background()
-	get_result , error := manager.redis.Get( context , redis_key ).Result()
+	get_result , error := manager.redis.Get( ctx , redis_key ).Result()
 	if error != nil { panic( error ) }
 	result = get_result
 	return result
@@ -31,7 +31,7 @@ func ( manager *Manager ) Get( redis_key string ) ( result string ) {
 func ( manager *Manager ) Set( redis_key string , value string ) ( result string ) {
 	result = "failed"
 	var ctx = context.Background()
-	set_result , error := manager.redis.Set( context , redis_key , value , 0 ).Result()
+	set_result , error := manager.redis.Set( ctx , redis_key , value , 0 ).Result()
 	if error != nil { panic( error ) }
 	result = set_result
 	return result
