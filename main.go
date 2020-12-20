@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"encoding/json"
-	//"bytes"
 	redis "github.com/0187773933/RedisManagerUtils/manager"
 )
 
@@ -34,5 +33,14 @@ func main() {
 	json_unmarshal_error := json.Unmarshal( []byte( json_get_test ) , &json_get_test_struct )
 	if json_unmarshal_error != nil { panic( json_unmarshal_error ) }
 	fmt.Println( json_get_test_struct )
+
+	fmt.Println( redis.CircleCurrent( "test" ) )
+	fmt.Println( redis.CircleNext( "test" ) )
+	fmt.Println( redis.CircleNext( "test" ) )
+	fmt.Println( redis.CircleNext( "test" ) )
+	fmt.Println( redis.CirclePrevious( "test" ) )
+	fmt.Println( redis.CirclePrevious( "test" ) )
+	fmt.Println( redis.CirclePrevious( "test" ) )
+	fmt.Println( redis.CircleCurrent( "test" ) )
 
 }
