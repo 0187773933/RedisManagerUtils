@@ -37,10 +37,10 @@ func ( manager *Manager ) Set( redis_key string , value string ) ( result string
 	return result
 }
 
-func ( manager *Manager ) ListIndex( redis_key string , value string ) ( result string ) {
+func ( manager *Manager ) ListIndex( redis_key string , value int64 ) ( result string ) {
 	result = "failed"
 	var ctx = context.Background()
-	index_result , index_result_error := manager.redis.LIndex( ctx , redis_circular_list_key , circular_list_index_int_64 ).Result()
+	index_result , index_result_error := manager.redis.LIndex( ctx , redis_key , value ).Result()
 	if index_result_error != nil { panic( index_result_error ) }
 	if error != nil { panic( error ) }
 	result = index_result
@@ -50,7 +50,7 @@ func ( manager *Manager ) ListIndex( redis_key string , value string ) ( result 
 func ( manager *Manager ) Increment( redis_key string ) ( result string ) {
 	result = "failed"
 	var context = context.Background()
-	_ , increment_error := manager.redis.Incr( ctx , redis_circular_list_key ).Result()
+	_ , increment_error := manager.redis.Incr( ctx , redis_key ).Result()
 	if increment_error != nil { panic( increment_error ) }
 	if error != nil { panic( error ) }
 	result = "success"
@@ -60,7 +60,7 @@ func ( manager *Manager ) Increment( redis_key string ) ( result string ) {
 func ( manager *Manager ) Decrement( redis_key string ) ( result string ) {
 	result = "failed"
 	var context = context.Background()
-	_ , increment_error := manager.redis.Decr( ctx , redis_circular_list_key ).Result()
+	_ , increment_error := manager.redis.Decr( ctx , redis_key ).Result()
 	if increment_error != nil { panic( increment_error ) }
 	if error != nil { panic( error ) }
 	result = "success"
@@ -71,7 +71,7 @@ func ( manager *Manager ) Decrement( redis_key string ) ( result string ) {
 func ( manager *Manager ) ListPushLeft( redis_key string ) ( result string ) {
 	result = "failed"
 	var ctx = context.Background()
-	_ , increment_error := manager.redis.LPush( ctx , redis_circular_list_key ).Result()
+	_ , increment_error := manager.redis.LPush( ctx , redis_key ).Result()
 	if increment_error != nil { panic( increment_error ) }
 	if error != nil { panic( error ) }
 	result = "success"
@@ -81,7 +81,7 @@ func ( manager *Manager ) ListPushLeft( redis_key string ) ( result string ) {
 func ( manager *Manager ) ListPushRight( redis_key string ) ( result string ) {
 	result = "failed"
 	var ctx = context.Background()
-	_ , increment_error := manager.redis.RPush( ctx , redis_circular_list_key ).Result()
+	_ , increment_error := manager.redis.RPush( ctx , redis_key ).Result()
 	if increment_error != nil { panic( increment_error ) }
 	if error != nil { panic( error ) }
 	result = "success"
