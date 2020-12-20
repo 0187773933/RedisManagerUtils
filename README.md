@@ -1,9 +1,11 @@
+# Redis Manager Utils
+
+```
 package main
 
 import (
 	"fmt"
 	"encoding/json"
-	//"bytes"
 	redis "github.com/0187773933/RedisManagerUtils/manager"
 )
 
@@ -36,3 +38,4 @@ func main() {
 	fmt.Println( json_get_test_struct )
 
 }
+```
