@@ -12,7 +12,7 @@ type TestStruct struct {
 }
 
 func main() {
-	fmt.Println("main")
+
 	redis := redis.Manager{}
 	redis.Connect( "localhost:6379" , 3 , "" )
 

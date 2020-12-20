@@ -73,20 +73,20 @@ func ( manager *Manager ) Decrement( redis_key string ) ( result string ) {
 }
 
 
-func ( manager *Manager ) ListPushLeft( redis_key string ) ( result string ) {
+func ( manager *Manager ) ListPushLeft( redis_key string , value string ) ( result string ) {
 	result = "failed"
 	var ctx = context.Background()
-	_ , l_push_error := manager.redis.LPush( ctx , redis_key ).Result()
+	_ , l_push_error := manager.redis.LPush( ctx , redis_key , value ).Result()
 	if l_push_error != nil { fmt.Println( l_push_error ) } else {
 		result = "success"
 	}
 	return result
 }
 
-func ( manager *Manager ) ListPushRight( redis_key string ) ( result string ) {
+func ( manager *Manager ) ListPushRight( redis_key string , value string ) ( result string ) {
 	result = "failed"
 	var ctx = context.Background()
-	_ , r_push_error := manager.redis.RPush( ctx , redis_key ).Result()
+	_ , r_push_error := manager.redis.RPush( ctx , redis_key , value ).Result()
 	if r_push_error != nil { fmt.Println( r_push_error ) } else {
 		result = "success"
 	}
