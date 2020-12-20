@@ -93,10 +93,11 @@ func ( manager *Manager ) ListPushRight( redis_key string , value string ) ( res
 	return result
 }
 
-func ( manager *Manager ) Publish( redis_key string , value string ) {
+func ( manager *Manager ) Publish( redis_key string , value string ) (result string) {
+	result = "failed"
 	var ctx = context.Background()
-	_ , l_push_error := manager.Redis.Do( ctx , "PUBLISH" , redis_key , value ).Result()
-	if l_push_error != nil { fmt.Println( l_push_error ) } else {
+	publish_result , publish_error := manager.Redis.Do( ctx , "PUBLISH" , redis_key , value ).Result()
+	if publish_error != nil { fmt.Println( publish_error ) } else {
 		result = "success"
 	}
 	return result
