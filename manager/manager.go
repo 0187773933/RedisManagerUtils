@@ -48,7 +48,7 @@ func ( manager *Manager ) ListIndex( redis_key string , value int64 ) ( result s
 
 func ( manager *Manager ) Increment( redis_key string ) ( result string ) {
 	result = "failed"
-	var context = context.Background()
+	var ctx = context.Background()
 	_ , increment_error := manager.redis.Incr( ctx , redis_key ).Result()
 	if increment_error != nil { panic( increment_error ) }
 	result = "success"
@@ -57,7 +57,7 @@ func ( manager *Manager ) Increment( redis_key string ) ( result string ) {
 
 func ( manager *Manager ) Decrement( redis_key string ) ( result string ) {
 	result = "failed"
-	var context = context.Background()
+	var ctx = context.Background()
 	_ , increment_error := manager.redis.Decr( ctx , redis_key ).Result()
 	if increment_error != nil { panic( increment_error ) }
 	result = "success"
