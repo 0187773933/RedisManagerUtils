@@ -96,9 +96,9 @@ func ( manager *Manager ) ListPushRight( redis_key string , value string ) ( res
 func ( manager *Manager ) Publish( redis_key string , value string ) (result string) {
 	result = "failed"
 	var ctx = context.Background()
-	publish_result , publish_error := manager.Redis.Do( ctx , "PUBLISH" , redis_key , value ).Result()
+	_ , publish_error := manager.Redis.Do( ctx , "PUBLISH" , redis_key , value ).Result()
 	if publish_error != nil { fmt.Println( publish_error ) } else {
-		result = publish_result
+		result = "success"
 	}
 	return result
 }
