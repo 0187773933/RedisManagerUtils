@@ -98,7 +98,7 @@ func ( manager *Manager ) Publish( redis_key string , value string ) (result str
 	var ctx = context.Background()
 	publish_result , publish_error := manager.Redis.Do( ctx , "PUBLISH" , redis_key , value ).Result()
 	if publish_error != nil { fmt.Println( publish_error ) } else {
-		result = "success"
+		result = publish_result
 	}
 	return result
 }
