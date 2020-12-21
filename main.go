@@ -11,13 +11,16 @@ type TestStruct struct {
 	Wadu string `json:wadu`
 	Waduagain []int `json:waduagain`
 }
-
+func handler( message string ) {
+	fmt.Printf( "Handler === %s\n" , message )
+}
 func main() {
 
 	redis := redis.Manager{}
 	redis.Connect( "localhost:6379" , 3 , "" )
 
-	go redis.Subscribe( "LOG.ALL" )
+	// redis.Subscribe( "LOG.ALL" , handler )
+	go redis.Subscribe( "LOG.ALL" , handler )
 
 	// Set JSON Example
 	test_data := TestStruct{

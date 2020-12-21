@@ -103,7 +103,7 @@ func ( manager *Manager ) Publish( redis_key string , value string ) (result str
 	return result
 }
 
-func ( manager *Manager ) Subscribe( redis_key string ) (result string) {
+func ( manager *Manager ) Subscribe( redis_key string , callback func( msg string ) ) (result string) {
 	result = "failed"
 	var ctx = context.Background()
 	pubsub := manager.Redis.Subscribe( ctx , redis_key )
@@ -124,7 +124,8 @@ func ( manager *Manager ) Subscribe( redis_key string ) (result string) {
 	// Consume messages.
 	for msg := range ch {
 		//fmt.Println( msg.Channel , msg.Payload )
-		fmt.Println( msg )
+		//fmt.Println( msg )
+		callback( msg.Payload )
 	}
 	return
 }
