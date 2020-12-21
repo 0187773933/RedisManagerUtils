@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 	"encoding/json"
 	redis "github.com/0187773933/RedisManagerUtils/manager"
 )
@@ -15,6 +16,8 @@ func main() {
 
 	redis := redis.Manager{}
 	redis.Connect( "localhost:6379" , 3 , "" )
+
+	go redis.Subscribe( "LOG.ALL" )
 
 	// Set JSON Example
 	test_data := TestStruct{
@@ -42,5 +45,7 @@ func main() {
 	fmt.Println( redis.CirclePrevious( "test" ) )
 	fmt.Println( redis.CirclePrevious( "test" ) )
 	fmt.Println( redis.CircleCurrent( "test" ) )
+
+	time.Sleep( 20*time.Second )
 
 }

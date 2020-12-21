@@ -103,6 +103,35 @@ func ( manager *Manager ) Publish( redis_key string , value string ) (result str
 	return result
 }
 
+func ( manager *Manager ) Subscribe( redis_key string ) (result string) {
+	result = "failed"
+	var ctx = context.Background()
+	pubsub := manager.Redis.Subscribe( ctx , redis_key )
+
+	// Wait for confirmation that subscription is created before publishing anything.
+	_ , err := pubsub.Receive( ctx )
+	if err != nil { fmt.Println( err ); return }
+
+	// Channel For Recieving Messages
+	ch := pubsub.Channel()
+	defer pubsub.Close()
+	//var ctx = context.Background()
+	_ , err = pubsub.Receive( ctx )
+	if err != nil {
+		fmt.Println(err)
+
+	}
+	// Consume messages.
+	for msg := range ch {
+		//fmt.Println( msg.Channel , msg.Payload )
+		fmt.Println( msg )
+	}
+	return
+}
+
+
+
+
 func ( manager *Manager ) CircleCurrent( redis_circular_list_key string ) ( result string , index string ) {
 	result = "failed"
 	index = "0"
